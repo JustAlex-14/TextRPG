@@ -1,18 +1,24 @@
 
+class Character:
+    def __init__(self, name, health, weapon, strength):
+        self.name = name
+        self.health = health
+        self.weapon = weapon
+        self.strength = strength 
+
+class Enemy:
+    def __init__(self, type, health, weapon, strength):
+        self.type = type
+        self.health = health
+        self.weapon = weapon
+        self.strength = strength 
+
 #Creating character
-name = "Bob"
-health = 100
-weapon = "Sword"
-strength = 3
-print("Name: ", name, "\nHealth: ", health, "\nWeapon: ", weapon)  
+player = Character("Bob", 100, "Sword", 3)
+print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
 
 #Creating Enemy 
-enemy = "Skeleton"
-e_health = 50
-e_weapon = "Dagger"
-e_strength = 1.5
-
-
+enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5)
 
 #Calculate damage of an attack 
 def dmgCalc(str, weapon):
@@ -25,26 +31,26 @@ def dmgCalc(str, weapon):
     damage = str * weaponDamage
     return damage
    
-def isAlive(enemy, e_health):
-    if e_health <=0:
+def isAlive(enemy, health):
+    if health <=0:
         print(enemy, " is dead!")
         return False
     else: return True
     
 #Attack 
-e_health = e_health - dmgCalc(strength, weapon)
-if isAlive(enemy, e_health):
-    print("Bob attacked a Skeleton. \nSkeleton has ", e_health, " health.")
-e_health = e_health - dmgCalc(strength, weapon)
-if isAlive(enemy, e_health):
-    print("Bob attacked a Skeleton. \nSkeleton has ", e_health, " health.")
-e_health = e_health - dmgCalc(strength, weapon)
-if isAlive(enemy, e_health):
-    print("Bob attacked a Skeleton. \nSkeleton has ", e_health, " health.")
-e_health = e_health - dmgCalc(strength, weapon)
-if isAlive(enemy, e_health):
-    print("Bob attacked a Skeleton. \nSkeleton has ", e_health, " health.")
+playerDamage = dmgCalc(player.strength, player.weapon)
+enemy1.health = enemy1.health - playerDamage
+if isAlive(enemy1.name, enemy1.health):
+    print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
+enemy1.health = enemy1.health - playerDamage
+if isAlive(enemy1.name, enemy1.health):
+    print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
+enemy1.health = enemy1.health - playerDamage
+if isAlive(enemy1.name, enemy1.health):
+    print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
+enemy1.health = enemy1.health - playerDamage
+if isAlive(enemy1.name, enemy1.health):
+    print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
 
-    #Test
-    #Test 2
+
     
