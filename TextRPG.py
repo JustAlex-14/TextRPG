@@ -44,3 +44,7 @@ if isAlive(enemy, e_health):
 e_health = e_health - dmgCalc(strength, weapon)
 if isAlive(enemy, e_health):
     print("Bob attacked a Skeleton. \nSkeleton has ", e_health, " health.")
+
+    #Test
+    #Test 2
+    
