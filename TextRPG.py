@@ -40,16 +40,16 @@ def isAlive(enemy, health):
 #Attack 
 playerDamage = dmgCalc(player.strength, player.weapon)
 enemy1.health = enemy1.health - playerDamage
-if isAlive(enemy1.name, enemy1.health):
+if isAlive(enemy1.type, enemy1.health):
     print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
 enemy1.health = enemy1.health - playerDamage
-if isAlive(enemy1.name, enemy1.health):
+if isAlive(enemy1.type, enemy1.health):
     print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
 enemy1.health = enemy1.health - playerDamage
-if isAlive(enemy1.name, enemy1.health):
+if isAlive(enemy1.type, enemy1.health):
     print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
 enemy1.health = enemy1.health - playerDamage
-if isAlive(enemy1.name, enemy1.health):
+if isAlive(enemy1.type, enemy1.health):
     print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
 
 
