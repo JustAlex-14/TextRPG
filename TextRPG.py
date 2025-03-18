@@ -46,13 +46,7 @@ def dmgCalc(str, weapon):
     damage = str * weaponDamage
     return damage
 
-#TODO
-#Fix type error
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
     playerDamage = dmgCalc(player.strength, player.weapon)
     enemy1.takeDamage(playerDamage, player)
-
-
-
-   
