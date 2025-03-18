@@ -5,7 +5,19 @@ class Character:
         self.weapon = weapon
         self.strength = strength 
         self.level = level
+    
+    def isAlive(self, health):
+        if health <=0:
+            print(self.name, " is dead!")
+            return False
+        else: return True
 
+    def takeDamage(self, damageReceived, attacker):
+        self.health = self.health - damageReceived
+        if self.isAlive(self.health):
+            print(attacker.name, " attacked ", self.type,". \n", 
+                  self.type, " has ", self.health, " health.")
+            
 class Player(Character):
     def __init__(self, name, health, weapon, strength, level):
         super().__init__(health, weapon, strength, level)
@@ -33,19 +45,14 @@ def dmgCalc(str, weapon):
         weaponDamage = 3
     damage = str * weaponDamage
     return damage
-   
-def isAlive(enemy, health):
-    if health <=0:
-        print(enemy, " is dead!")
-        return False
-    else: return True
 
-
+#TODO
+#Fix type error
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
     playerDamage = dmgCalc(player.strength, player.weapon)
-    enemy1.health = enemy1.health - playerDamage
-    if isAlive(enemy1.type, enemy1.health):
-        print("Bob attacked a Skeleton. \nSkeleton has ", enemy1.health, " health.")
+    enemy1.takeDamage(playerDamage, player)
+
+
 
    
