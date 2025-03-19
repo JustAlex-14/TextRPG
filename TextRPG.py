@@ -58,14 +58,6 @@ def attackSequence():
     player.attack(enemies[chooseEnemy])
     attackAgain = input("Do you want to attack again? (y/n)\n")
     if attackAgain == "y": attackSequence()
-    #if chooseEnemy == 1:
-    #    player.attack(enemy1)
-    #    attackAgain = input("Do you want to attack again? (y/n)\n")
-    #    if attackAgain == "y": attackSequence()
-    #elif chooseEnemy == 2:
-    #    player.attack(enemy2)
-    #    attackAgain = input("Do you want to attack again? (y/n)\n")
-    #    if attackAgain == "y": attackSequence()
         
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
