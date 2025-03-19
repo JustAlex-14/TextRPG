@@ -48,12 +48,17 @@ print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.w
 enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5, 1)
 enemy2 = Enemy("Orc", 75, "Axe", 2, 1)
 
-
-
-choice = input("Do you want to attack: (y/n)\n")
-if choice == "y":
+def attackSequence():
     chooseEnemy = int(input("Which enemy do you want to attack? - Select number\n 1. Skeleton\n 2. Orc\n"))
     if chooseEnemy == 1:
         player.attack(enemy1)
+        attackAgain = input("Do you want to attack again? (y/n)\n")
+        if attackAgain == "y": attackSequence()
     elif chooseEnemy == 2:
         player.attack(enemy2)
+        attackAgain = input("Do you want to attack again? (y/n)\n")
+        if attackAgain == "y": attackSequence()
+        
+choice = input("Do you want to attack: (y/n)\n")
+if choice == "y":
+    attackSequence()
