@@ -12,11 +12,23 @@ class Character:
             return False
         else: return True
 
-    def takeDamage(self, damageReceived, attacker):
-        self.health = self.health - damageReceived
+    #Calculate damage of an attack 
+    def dmgCalc(self, str, weapon):
+        if weapon == "Sword":
+            weaponDamage = 5
+        elif weapon == "Axe":
+            weaponDamage = 7
+        elif weapon == "Dagger":
+            weaponDamage = 3
+        damage = str * weaponDamage
+        return damage
+    
+    def attack(self, victim):
+        dmgDealt = self.dmgCalc(self.strength, self.weapon)
+        victim.health = victim.health - dmgDealt
         if self.isAlive(self.health):
-            print(attacker.name, " attacked ", self.type,". \n", 
-                  self.type, " has ", self.health, " health.")
+            print(self.name, " attacked ", victim.type,". \n",
+                  victim.type, " has ", victim.health, " health.")
             
 class Player(Character):
     def __init__(self, name, health, weapon, strength, level):
@@ -32,21 +44,16 @@ class Enemy(Character):
 player = Player("Bob", 100, "Sword", 3, 1)
 print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
 
-#Creating Enemy 
+#Creating Enemies
 enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5, 1)
+enemy2 = Enemy("Orc", 75, "Axe", 2, 1)
 
-#Calculate damage of an attack 
-def dmgCalc(str, weapon):
-    if weapon == "Sword":
-        weaponDamage = 5
-    elif weapon == "Axe":
-        weaponDamage = 7
-    elif weapon == "Dagger":
-        weaponDamage = 3
-    damage = str * weaponDamage
-    return damage
+
 
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
-    playerDamage = dmgCalc(player.strength, player.weapon)
-    enemy1.takeDamage(playerDamage, player)
+    chooseEnemy = int(input("Which enemy do you want to attack? - Select number\n 1. Skeleton\n 2. Orc\n"))
+    if chooseEnemy == 1:
+        player.attack(enemy1)
+    elif chooseEnemy == 2:
+        player.attack(enemy2)
