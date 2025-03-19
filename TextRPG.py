@@ -6,9 +6,9 @@ class Character:
         self.strength = strength 
         self.level = level
     
-    def isAlive(self, health):
-        if health <=0:
-            print(self.name, " is dead!")
+    def isAlive(self):
+        if self.health <=0:
+            print(self.type, " is dead!")
             return False
         else: return True
 
@@ -23,15 +23,19 @@ class Character:
         damage = str * weaponDamage
         return damage
     
+    #TODO 
+    #Remove enemy from list when killed 
     def attack(self, victim):
         dmgDealt = self.dmgCalc(self.strength, self.weapon)
         victim.health = victim.health - dmgDealt
-        if self.isAlive(self.health):
+        if victim.isAlive():
             print(self.name, " attacked ", victim.type,". \n",
                   victim.type, " has ", victim.health, " health.")
-            
+        elif not victim.isAlive():
+            print(self.name, " killed ", victim.type,".")
+
 class Player(Character):
-    def __init__(self, name, health, weapon, strength, level):
+    def __init__(self, name, health, weapon, strength, level, coins):
         super().__init__(health, weapon, strength, level)
         self.name = name   
 
@@ -41,24 +45,43 @@ class Enemy(Character):
         self.type = type
 
 #Creating character
-player = Player("Bob", 100, "Sword", 3, 1)
-print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
+player = Player("Bob", 100, "Sword", 3, 1, 0)
+#print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
 
 #Creating Enemies
 enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5, 1)
 enemy2 = Enemy("Orc", 75, "Axe", 2, 1)
+enemies = [enemy1, enemy2]
 
 def attackSequence():
-    chooseEnemy = int(input("Which enemy do you want to attack? - Select number\n 1. Skeleton\n 2. Orc\n"))
-    if chooseEnemy == 1:
-        player.attack(enemy1)
-        attackAgain = input("Do you want to attack again? (y/n)\n")
-        if attackAgain == "y": attackSequence()
-    elif chooseEnemy == 2:
-        player.attack(enemy2)
-        attackAgain = input("Do you want to attack again? (y/n)\n")
-        if attackAgain == "y": attackSequence()
+    chooseEnemy = int(input("Which enemy do you want to attack? - Select number\n 1. Skeleton\n 2. Orc\n"))-1
+    player.attack(enemies[chooseEnemy])
+    attackAgain = input("Do you want to attack again? (y/n)\n")
+    if attackAgain == "y": attackSequence()
+    #if chooseEnemy == 1:
+    #    player.attack(enemy1)
+    #    attackAgain = input("Do you want to attack again? (y/n)\n")
+    #    if attackAgain == "y": attackSequence()
+    #elif chooseEnemy == 2:
+    #    player.attack(enemy2)
+    #    attackAgain = input("Do you want to attack again? (y/n)\n")
+    #    if attackAgain == "y": attackSequence()
         
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
     attackSequence()
+
+#Room 1 Plan:
+##Skeleton and orc 
+##Skeleton throws a dagger at player landing in the doorframe beside player's head 
+##Ask player if they want to fight or retreat 
+##if retreat, random chance of success, low odds of success
+##engage in battle, give player first attack, choose who they want to attack
+##keep fighting till both are dead 
+##take in turns for player and enemies to attack 
+##once enemies are dead, allow player to explore the room:
+###chest with health potion - inventory system needs to be built 
+###corpse in the corner of the room - if examined, will find a small bag with gold coins - wallet system i.e.attribute added to player class
+###loot bodies - dagger from skeleton and rusty key from orc 
+###doorway leading to room 2 
+###guard action on your turn instead of an attack - random chance of parry, low odds - random chance of guard failing, low odds 
