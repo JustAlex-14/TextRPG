@@ -45,26 +45,31 @@ class Enemy(Character):
 
 #Creating character
 player = Player("Bob", 100, "Sword", 3, 1, 0)
-#print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
 
 #Creating Enemies
-#TODO 
-#Return skeleton's health back to 50 after testing
+#TODO - Return skeleton's health back to 50 and orc's to 75 after testing
 enemy1 = Enemy("Skeleton", 5, "Dagger", 1.5, 1)
-enemy2 = Enemy("Orc", 75, "Axe", 2, 1)
+enemy2 = Enemy("Orc", 5, "Axe", 2, 1)
 enemies = [enemy1, enemy2]
 
 def attackSequence():
-    print("Which enemy do you want to attack? - Select number\n")
-    for x in enemies:
-        print(enemies.index(x)+1,"-", x.type)
-    chooseEnemy = int(input("\n"))-1
-    player.attack(enemies[chooseEnemy])
-    if enemies[chooseEnemy].isAlive() == False: 
-        enemies.pop((chooseEnemy))
-    attackAgain = input("Do you want to attack again? (y/n)\n")
-    if attackAgain == "y": 
-        attackSequence()
+    if not enemies:
+        print("Bob has killed all enemies.")
+    elif not player.isAlive():
+        print("Bob has been killed. Game Over.")
+    else:
+        print("Which enemy do you want to attack? - Select number\n")
+        #TODO - Add error checking for input
+        for x in enemies:
+            print(enemies.index(x)+1,"-", x.type)
+        chooseEnemy = int(input("\n"))-1
+        player.attack(enemies[chooseEnemy])
+        if enemies[chooseEnemy].isAlive() == False: 
+            enemies.pop((chooseEnemy))
+        attackAgain = input("Do you want to attack again? (y/n)\n")
+        if attackAgain == "y": 
+            attackSequence()
+        
         
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
