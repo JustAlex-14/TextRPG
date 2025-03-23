@@ -8,7 +8,6 @@ class Character:
     
     def isAlive(self):
         if self.health <=0:
-            print(self.type, " is dead!")
             return False
         else: return True
 
@@ -29,10 +28,10 @@ class Character:
         dmgDealt = self.dmgCalc(self.strength, self.weapon)
         victim.health = victim.health - dmgDealt
         if victim.isAlive():
-            print(self.name, " attacked ", victim.type,". \n",
-                  victim.type, " has ", victim.health, " health.")
+            print(self.name, "attacked", victim.type,". \n",
+                  victim.type, "has", victim.health, "health.")
         elif not victim.isAlive():
-            print(self.name, " killed ", victim.type,".")
+            print(self.name, "killed", victim.type,".")
 
 class Player(Character):
     def __init__(self, name, health, weapon, strength, level, coins):
@@ -49,15 +48,23 @@ player = Player("Bob", 100, "Sword", 3, 1, 0)
 #print("Name: ", player.name, "\nHealth: ", player.health, "\nWeapon: ", player.weapon)  
 
 #Creating Enemies
-enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5, 1)
+#TODO 
+#Return skeleton's health back to 50 after testing
+enemy1 = Enemy("Skeleton", 5, "Dagger", 1.5, 1)
 enemy2 = Enemy("Orc", 75, "Axe", 2, 1)
 enemies = [enemy1, enemy2]
 
 def attackSequence():
-    chooseEnemy = int(input("Which enemy do you want to attack? - Select number\n 1. Skeleton\n 2. Orc\n"))-1
+    print("Which enemy do you want to attack? - Select number\n")
+    for x in enemies:
+        print(enemies.index(x)+1,"-", x.type)
+    chooseEnemy = int(input("\n"))-1
     player.attack(enemies[chooseEnemy])
+    if enemies[chooseEnemy].isAlive() == False: 
+        enemies.pop((chooseEnemy))
     attackAgain = input("Do you want to attack again? (y/n)\n")
-    if attackAgain == "y": attackSequence()
+    if attackAgain == "y": 
+        attackSequence()
         
 choice = input("Do you want to attack: (y/n)\n")
 if choice == "y":
