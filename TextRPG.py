@@ -28,10 +28,9 @@ class Character:
         dmgDealt = self.dmgCalc(self.strength, self.weapon)
         victim.health = victim.health - dmgDealt
         if victim.isAlive():
-            print(self.name, "attacked", victim.type,". \n",
-                  victim.type, "has", victim.health, "health.")
+            print(f"{self.name} attacked {victim.type}. \n{victim.type} has {victim.health} health.")
         elif not victim.isAlive():
-            print(self.name, "killed", victim.type,".")
+            print(f"{self.name} killed {victim.type}.")
 
 class Player(Character):
     def __init__(self, name, health, weapon, strength, level, coins):
@@ -48,7 +47,7 @@ player = Player("Bob", 100, "Sword", 3, 1, 0)
 
 #Creating Enemies
 #TODO - Return skeleton's health back to 50 and orc's to 75 after testing
-enemy1 = Enemy("Skeleton", 5, "Dagger", 1.5, 1)
+enemy1 = Enemy("Skeleton", 50, "Dagger", 1.5, 1)
 enemy2 = Enemy("Orc", 5, "Axe", 2, 1)
 enemies = [enemy1, enemy2]
 
