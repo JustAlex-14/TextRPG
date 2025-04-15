@@ -1,3 +1,4 @@
+import time
 
 class Character:
     def __init__(self, health, weapon, strength, level):
@@ -28,9 +29,9 @@ class Character:
         dmgDealt = self.dmgCalc(self.strength, self.weapon)
         victim.health = victim.health - dmgDealt
         if victim.isAlive():
-            print(f"{self.name} attacked {victim.type}. \n{victim.type} has {victim.health} health.")
+            print(f"\n{self.name} attacked {victim.name}. \n{victim.name} has {victim.health} health.")
         elif not victim.isAlive():
-            print(f"{self.name} killed {victim.type}.")
+            print(f"\n{self.name} killed {victim.name}.")
 
 class Player(Character):
     def __init__(self, name, health, weapon, strength, level, coins):
@@ -38,9 +39,16 @@ class Player(Character):
         self.name = name   
 
 class Enemy(Character):
-    def __init__(self, type, health, weapon, strength, level):
+    def __init__(self, name, health, weapon, strength, level):
         super().__init__(health, weapon, strength, level)
-        self.type = type
+        self.name = name
+
+def isGameOver():
+    if player.isAlive():
+        return False
+    else:
+        return True 
+
 
 #Creating character
 player = Player("Bob", 100, "Sword", 3, 1, 0)
@@ -52,27 +60,42 @@ enemy2 = Enemy("Orc", 5, "Axe", 2, 1)
 enemies = [enemy1, enemy2]
 
 def attackSequence():
-    if not enemies:
+    print("\nPlayer's Turn:\n Which enemy do you want to attack? - Select number\n")
+    #TODO - Add error checking for input
+    for x in enemies:
+        print(enemies.index(x)+1,"-", x.name)
+    chooseEnemy = int(input("\n"))-1
+    player.attack(enemies[chooseEnemy])
+    if enemies[chooseEnemy].isAlive() == False: 
+        enemies.pop((chooseEnemy))
+    #Enemy attack 
+    for x in enemies:
+        x.attack(player)
+
+
+#Game Start
+while not isGameOver():
+    print("You walk up to a solid oak door.") 
+    time.sleep(1)
+    print("You notice a faint flickering light coming from under the door.")
+    time.sleep(1)
+    print("You reach for the rusted door knob and turn it clockwise.")
+    time.sleep(1)
+    print("The door is heavy but you manage to push it open revealing a dimly lit room.")
+    time.sleep(1)
+    print("You make out 2 figures, a skeleton and an orc.")
+    time.sleep(3)
+    
+    attackSequence()
+    if not enemies: #if all enemies are dead
         print("Bob has killed all enemies.")
     elif not player.isAlive():
         print("Bob has been killed. Game Over.")
-    else:
-        print("Which enemy do you want to attack? - Select number\n")
-        #TODO - Add error checking for input
-        for x in enemies:
-            print(enemies.index(x)+1,"-", x.type)
-        chooseEnemy = int(input("\n"))-1
-        player.attack(enemies[chooseEnemy])
-        if enemies[chooseEnemy].isAlive() == False: 
-            enemies.pop((chooseEnemy))
-        attackAgain = input("Do you want to attack again? (y/n)\n")
-        if attackAgain == "y": 
-            attackSequence()
-        
-        
-choice = input("Do you want to attack: (y/n)\n")
-if choice == "y":
-    attackSequence()
+        gameOver = True
+    else: 
+        attackSequence()
+
+
 
 #Room 1 Plan:
 ##Skeleton and orc 
